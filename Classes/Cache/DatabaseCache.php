@@ -40,7 +40,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class DatabaseCache implements CacheInterface, SingletonInterface {
 
 	/** @var int */
-	static public $maximumNumberOfRecords = 500000;
+	static public $maximumNumberOfRecords = 5000000;
 
 	/** @var \TYPO3\CMS\Core\Database\DatabaseConnection */
 	protected $databaseConnection;
