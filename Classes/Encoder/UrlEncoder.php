@@ -303,7 +303,7 @@ class UrlEncoder extends EncodeDecoderBase {
 	protected function canCacheUrl($url) {
 		$bannedUrlsRegExp = $this->configuration->get('cache/banUrlsRegExp');
 
-		$result = (!$bannedUrlsRegExp || !preg_match($bannedUrlsRegExp, $url));
+		$result = (!$bannedUrlsRegExp || !preg_match($bannedUrlsRegExp, urldecode($url)));
 
 		if ($result) {
 			// Check page type: do not cache separators
