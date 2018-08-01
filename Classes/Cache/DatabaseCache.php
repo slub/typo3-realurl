@@ -397,18 +397,19 @@ class DatabaseCache implements CacheInterface, SingletonInterface {
 				$this->databaseConnection->sql_query('DELETE FROM tx_realurl_uniqalias_cache_map WHERE url_cache_id NOT IN (SELECT uid FROM tx_realurl_urldata)');
 			}
 
+      // Do not remove anything here. It is sufficiant to limitTableRecords. Garbage collection should be done on an other place.
 			// Remove expired URLs with the same path
-			$languageStatement = '';
-			if (isset($requestVariables['L'])) {
-				$languageStatement = ' AND request_variables LIKE \'%"L":"' . (int)$requestVariables['L'] . '"%\'';
-			}
-			$this->databaseConnection->exec_DELETEquery('tx_realurl_urldata',
-				'rootpage_id=' . (int)$cacheEntry->getRootPageId() . ' AND ' .
-					'speaking_url_hash=' . sprintf('%u', crc32($cacheEntry->getSpeakingUrl())) . ' AND ' .
-					'expire>0 AND ' .
-					'speaking_url=' . $this->databaseConnection->fullQuoteStr($cacheEntry->getSpeakingUrl(), 'tx_realurl_urldata') .
-					$languageStatement
-			);
+			// $languageStatement = '';
+			// if (isset($requestVariables['L'])) {
+			// 	$languageStatement = ' AND request_variables LIKE \'%"L":"' . (int)$requestVariables['L'] . '"%\'';
+			// }
+			// $this->databaseConnection->exec_DELETEquery('tx_realurl_urldata',
+			// 	'rootpage_id=' . (int)$cacheEntry->getRootPageId() . ' AND ' .
+			// 		'speaking_url_hash=' . sprintf('%u', crc32($cacheEntry->getSpeakingUrl())) . ' AND ' .
+			// 		'expire>0 AND ' .
+			// 		'speaking_url=' . $this->databaseConnection->fullQuoteStr($cacheEntry->getSpeakingUrl(), 'tx_realurl_urldata') .
+			// 		$languageStatement
+			// );
 
 			// Add this entry
 			$data['crdate'] = time();
